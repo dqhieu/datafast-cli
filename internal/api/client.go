@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/dqhieu/datafast-cli/internal/config"
@@ -16,7 +15,6 @@ const BaseURL = "https://datafa.st/api/v1"
 type Client struct {
 	BaseURL    string
 	APIKey     string
-	WebsiteID  string
 	HTTPClient *http.Client
 }
 
@@ -35,24 +33,15 @@ func (e *APIError) Error() string {
 	return fmt.Sprintf("API error %d: %s", e.Code, e.Message)
 }
 
-func New(websiteIDOverride string) (*Client, error) {
+func New() (*Client, error) {
 	apiKey, err := config.GetAPIKey()
 	if err != nil {
 		return nil, err
 	}
 
-	wID := websiteIDOverride
-	if wID == "" {
-		wID, err = config.GetWebsiteID()
-		if err != nil {
-			return nil, err
-		}
-	}
-
 	return &Client{
-		BaseURL:   BaseURL,
-		APIKey:    apiKey,
-		WebsiteID: wID,
+		BaseURL: BaseURL,
+		APIKey:  apiKey,
 		HTTPClient: &http.Client{
 			Timeout: 30 * time.Second,
 		},
@@ -61,11 +50,6 @@ func New(websiteIDOverride string) (*Client, error) {
 
 func (c *Client) do(method, path string, body io.Reader) (json.RawMessage, error) {
 	url := c.BaseURL + path
-	if strings.Contains(path, "?") {
-		url += "&website_id=" + c.WebsiteID
-	} else {
-		url += "?website_id=" + c.WebsiteID
-	}
 
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {

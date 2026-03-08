@@ -10,10 +10,7 @@ import (
 
 var Version = "1.0.0"
 
-var (
-	jsonOutput bool
-	websiteID  string
-)
+var jsonOutput bool
 
 var rootCmd = &cobra.Command{
 	Use:     "datafast",
@@ -32,12 +29,8 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().BoolVar(&jsonOutput, "json", false, "Output in JSON format")
-	rootCmd.PersistentFlags().StringVar(&websiteID, "website-id", "", "Website ID (overrides config)")
 }
 
 func initConfig() {
-	if val := os.Getenv("DATAFAST_WEBSITE_ID"); val != "" && websiteID == "" {
-		websiteID = val
-	}
 	viper.AutomaticEnv()
 }

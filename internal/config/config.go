@@ -8,8 +8,7 @@ import (
 )
 
 type Config struct {
-	APIKey    string `json:"api_key"`
-	WebsiteID string `json:"website_id"`
+	APIKey string `json:"api_key"`
 }
 
 func configDir() string {
@@ -37,9 +36,6 @@ func Load() (*Config, error) {
 	if val := os.Getenv("DATAFAST_API_KEY"); val != "" {
 		cfg.APIKey = val
 	}
-	if val := os.Getenv("DATAFAST_WEBSITE_ID"); val != "" {
-		cfg.WebsiteID = val
-	}
 
 	return cfg, nil
 }
@@ -53,17 +49,6 @@ func GetAPIKey() (string, error) {
 		return "", errors.New("API key not configured. Run 'datafast auth login' or set DATAFAST_API_KEY")
 	}
 	return cfg.APIKey, nil
-}
-
-func GetWebsiteID() (string, error) {
-	cfg, err := Load()
-	if err != nil {
-		return "", err
-	}
-	if cfg.WebsiteID == "" {
-		return "", errors.New("website ID not configured. Run 'datafast auth login' or set DATAFAST_WEBSITE_ID")
-	}
-	return cfg.WebsiteID, nil
 }
 
 func Save(cfg *Config) error {

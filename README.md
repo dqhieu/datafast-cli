@@ -37,7 +37,7 @@ datafast auth login
 ### Authentication
 
 ```sh
-datafast auth login      # Save API key and website ID
+datafast auth login      # Save API key
 datafast auth status     # Show current credentials
 datafast auth logout     # Remove stored credentials
 ```
@@ -92,7 +92,6 @@ datafast payments delete --visitor-id <id> --start 2024-01-01 --end 2024-12-31 -
 | Flag | Description |
 |------|-------------|
 | `--json` | Output raw JSON |
-| `--website-id` | Override configured website ID |
 | `--start` | Start date (ISO 8601) |
 | `--end` | End date (ISO 8601) |
 | `--timezone` | Timezone (IANA format) |
@@ -105,7 +104,6 @@ datafast payments delete --visitor-id <id> --start 2024-01-01 --end 2024-12-31 -
 | Variable | Description |
 |----------|-------------|
 | `DATAFAST_API_KEY` | API key (overrides config file) |
-| `DATAFAST_WEBSITE_ID` | Website ID (overrides config file) |
 
 Config is stored at `~/.config/datafast/config.json`.
 

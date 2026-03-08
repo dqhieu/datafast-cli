@@ -24,7 +24,7 @@ var (
 )
 
 func newClient() (*api.Client, error) {
-	return api.New(websiteID)
+	return api.New()
 }
 
 func newParams() *api.AnalyticsParams {

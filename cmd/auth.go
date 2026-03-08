@@ -29,16 +29,8 @@ var loginCmd = &cobra.Command{
 			return fmt.Errorf("API key cannot be empty")
 		}
 
-		fmt.Print("Enter your website ID: ")
-		wID, _ := reader.ReadString('\n')
-		wID = strings.TrimSpace(wID)
-		if wID == "" {
-			return fmt.Errorf("website ID cannot be empty")
-		}
-
 		cfg := &config.Config{
-			APIKey:    apiKey,
-			WebsiteID: wID,
+			APIKey: apiKey,
 		}
 		if err := config.Save(cfg); err != nil {
 			return fmt.Errorf("failed to save config: %w", err)
@@ -81,8 +73,7 @@ var statusCmd = &cobra.Command{
 			masked = masked[:4] + strings.Repeat("*", len(masked)-8) + masked[len(masked)-4:]
 		}
 
-		fmt.Printf("API Key:    %s\n", masked)
-		fmt.Printf("Website ID: %s\n", cfg.WebsiteID)
+		fmt.Printf("API Key: %s\n", masked)
 		return nil
 	},
 }
