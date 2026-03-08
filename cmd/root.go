@@ -8,15 +8,18 @@ import (
 	"github.com/spf13/viper"
 )
 
+var Version = "1.0.0"
+
 var (
 	jsonOutput bool
 	websiteID  string
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "datafast",
-	Short: "DataFast CLI — analytics from your terminal",
-	Long:  "A command-line interface for the DataFast analytics API.\nManage your website analytics, goals, and payments.",
+	Use:     "datafast",
+	Short:   "DataFast CLI — analytics from your terminal",
+	Long:    "A command-line interface for the DataFast analytics API.\nManage your website analytics, goals, and payments.",
+	Version: Version,
 }
 
 func Execute() {
