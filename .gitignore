@@ -18,3 +18,8 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Reference docs (not source code)
+DataFast API Documentation.md
+DataFast Product Documentation.md
+datafast-cli-implementation-plan.md
